@@ -190,11 +190,13 @@ body {
   transition: background 0.5s;
 }
 .container .col2 label {
-  padding-left: 8px;
+  float: right;
+  padding-right: 8px;
   font-size: 15px;
   color: #444;
   text-align: right;
 }
+
 .container .col2 .ccv {
   width: 40%;
 }
