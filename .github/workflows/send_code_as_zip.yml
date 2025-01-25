@@ -1,0 +1,27 @@
+name: Send Code as ZIP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  send-zip:
+    runs-on: ubuntu-latest
+
+    steps:
+      # בדיקה החוצה את הקוד למכונת העבודה
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # יצירת קובץ ZIP של הקוד
+      - name: Create ZIP archive
+        run: |
+          zip -r repository.zip .
+
+      # שליחת הקובץ כ-HTTP POST ל-API
+      - name: Send ZIP to API
+        run: |
+          curl -X POST https://3d7bf2afe3ee412993e0fedf4cecf08d.api.mockbin.io/ \
+          -H "Content-Type: multipart/form-data" \
+          -F "file=@repository.zip"
