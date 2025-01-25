@@ -1,4 +1,4 @@
-name: Send Code as ZIP
+name: Send Code as ZIP and Create Release
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  send-zip:
+  send-zip-and-create-release:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,6 +22,18 @@ jobs:
       # שליחת הקובץ כ-HTTP POST ל-API
       - name: Send ZIP to API
         run: |
-          curl -X POST https://3d7bf2afe3ee412993e0fedf4cecf08d.api.mockbin.io/ \
+          curl -X POST https://example.com/api/upload \
           -H "Content-Type: multipart/form-data" \
           -F "file=@repository.zip"
+
+      # יצירת Release חדש
+      - name: Create a Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Release v${{ github.run_number }}
+          body: "This release was automatically created after pushing to the main branch."
+          draft: false
+          prerelease: false
