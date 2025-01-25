@@ -22,7 +22,7 @@ jobs:
       # שליחת הקובץ כ-HTTP POST ל-API
       - name: Send ZIP to API
         run: |
-          curl -X POST https://example.com/api/upload \
+          curl -X POST https://3d7bf2afe3ee412993e0fedf4cecf08d.api.mockbin.io \
           -H "Content-Type: multipart/form-data" \
           -F "file=@repository.zip"
 
